@@ -15,7 +15,7 @@ const findOne = (list, { key, value }) => {
             // Operador condicional,
             // on es verifica que en cas que existeixi l'objecte recuperat en la línia anterior, executarà la funció onSuccess amb el paràmetre 'element'.
             // En el cas contrari executarà la funció onError amb un missatge.
-            element ? onSuccess(element) : onError({ msg: 'ERROR: Element Not Found' });
+            element ? resolve(element) : reject({ msg: 'ERROR: Element Not Found' });
         }, 2000);//Acabar de definir la funció setTimeout amb els ms corresponents.
     });
 };
