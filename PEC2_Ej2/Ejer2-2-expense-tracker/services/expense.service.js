@@ -7,8 +7,8 @@
 class ExpenseService {
 
     constructor() {
-        this.exepenses = (JSON.parse(localStorage.getItem('exepenses')) || []).map(
-            exepense => new Exepense(exepense)
+        this.expenses = (JSON.parse(localStorage.getItem('transactions')) || []).map(
+            expense => new Expense(expense)
         );
     }
 
@@ -16,34 +16,32 @@ class ExpenseService {
         this.onExpenseListChanged = callback;
     }
 
-    _commit(exepenses) {
-        this.onExpenseListChanged(exepenses);
-        localStorage.setItem('exepenses', JSON.stringify(exepenses));
+    _commit(expenses) {
+        this.onExpenseListChanged(expenses);
+        localStorage.setItem('transactions', JSON.stringify(expenses));
     }
 
     addExpense(text, amount) {
-        this.exepenses.push(new Exepense({ text, amount}));
-
-        this._commit(this.exepenses);
+        this.expenses.push(new Expense({text, amount}));
+        this._commit(this.expenses);
     }
 
-    editTodo(id, updatedText, updateAmount) {
-        this.exepenses = this.exepenses.map(exepense =>
-            exepense.id === id
-                ? new Exepense({
-                    ...exepense,
+    editExpense(id, updatedText, updateAmount) {
+        this.expenses = this.expenses.map(expense =>
+            expense.id === id
+                ? new Expense({
+                    ...expense,
                     text: updatedText,
                     amount: updateAmount
                 })
-                : exepense
+                : expense
         );
 
-        this._commit(this.exepenses);
+        this._commit(this.expenses);
     }
 
-    deleteExpenses(_id) {
-        this.exepenses = this.exepenses.filter(({ id }) => id !== _id);
-
-        this._commit(this.exepenses);
+    deleteExpense(_id) {
+        this.expenses = this.expenses.filter(({ id }) => id !== _id);
+        this._commit(this.expenses);
     }
 }

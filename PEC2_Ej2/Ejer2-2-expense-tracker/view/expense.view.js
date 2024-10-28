@@ -1,5 +1,0 @@
-/**
- * @Class View
- * 
- * Reprensetació visual
- */

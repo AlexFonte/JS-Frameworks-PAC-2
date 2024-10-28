@@ -4,7 +4,7 @@
  * Manages the data of the application.
  */
 
-class Exepense {
+class Expense {
     constructor({ text, amount }) {
         this.id = this.generateID();
         this.text = text;
