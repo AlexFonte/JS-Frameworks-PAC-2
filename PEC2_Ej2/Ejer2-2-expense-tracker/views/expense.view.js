@@ -131,15 +131,29 @@ class ExpenseView {
         if(expenses.length !== 0){
             expenses.forEach(transaction => {
                 const sign = transaction.amount < 0 ? '-' : '+';
-                const item = document.createElement('li');
+
+                const item = document.createElement('li', transaction.amount < 0 ? 'minus' : 'plus');
                 item.id = transaction.id;
-                item.classList.add(transaction.amount < 0 ? 'minus' : 'plus');
-                item.innerHTML = `${transaction.text} <span>${sign}${Math.abs(transaction.amount)}</span>
-                <button class="delete-btn">x</button>`;
+
+                const itemText = this.createElement('input', 'edit-expense-text');
+                itemText.type= 'text';
+                itemText.value = transaction.text;
+                itemText.id = 'expenseText';
+
+
+                const itemAmount = this.createElement('input', 'edit-expense-amount');
+                itemAmount.type= 'number';
+                itemAmount.value = transaction.amount;
+                itemAmount.id = 'expenseAmount';
+                itemAmount.textContent= `${sign}${transaction.amount}`;
+
+                const itemDelButton = this.createElement('button', 'delete-btn');
+                itemDelButton.textContent = 'X';
+
+                item.append(itemText, itemAmount, itemDelButton);
+
                 this.transactionsList.appendChild(item);
             });
-        }else{
-
         }
 
         const amounts = expenses.map(transaction => transaction.amount);
