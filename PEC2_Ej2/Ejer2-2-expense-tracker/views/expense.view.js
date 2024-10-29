@@ -110,15 +110,12 @@ class ExpenseView {
 
     createElement(tag, className) {
         const element = document.createElement(tag);
-
         if (className) element.classList.add(className);
-
         return element;
     }
 
     getElement(selector) {
         const element = document.querySelector(selector);
-
         return element;
     }
 
@@ -130,16 +127,16 @@ class ExpenseView {
         
         if(expenses.length !== 0){
             expenses.forEach(transaction => {
-                const sign = transaction.amount < 0 ? '-' : '+';
+                const sign = +transaction.amount < 0 ? '-' : '+';
 
-                const item = document.createElement('li', transaction.amount < 0 ? 'minus' : 'plus');
+                const item = document.createElement('li');
+                item.classList.add(transaction.amount < 0 ? 'minus' : 'plus');
                 item.id = transaction.id;
 
                 const itemText = this.createElement('input', 'edit-expense-text');
                 itemText.type= 'text';
                 itemText.value = transaction.text;
                 itemText.id = 'expenseText';
-
 
                 const itemAmount = this.createElement('input', 'edit-expense-amount');
                 itemAmount.type= 'number';
@@ -151,7 +148,6 @@ class ExpenseView {
                 itemDelButton.textContent = 'X';
 
                 item.append(itemText, itemAmount, itemDelButton);
-
                 this.transactionsList.appendChild(item);
             });
         }
@@ -171,12 +167,6 @@ class ExpenseView {
         this.balance.innerText = `$${total}`;
         this.incValueContainer.innerText = `$${income}`;
         this.expValueContainer.innerText = `$${expense}`;
-      
-
-    }
-
-    _initLocalListeners() {
-
     }
 
     bindAddExpense(handler) {
@@ -191,6 +181,34 @@ class ExpenseView {
             }
         });
     }
+    
+    /**
+     * Primer aquest bind abans del delete, ja que si els invertim,
+     * primer anira al delete ja que es un click event, 
+     * verificara que no correspond i anira al de 'focusout'
+     * tenin aquest odre es assegurem que la funcionalitat vagi correctament 
+     */
+    bindEditExpense(handler) {
+        this.transactionsList.addEventListener("focusout", event => {
+        
+            let parent = event.target.parentElement;
+            let text;
+            let amount; 
+            
+            if(event.target.id === 'expenseText'){
+                text = event.target.value;
+                amount = +parent.querySelector('#expenseAmount').value;
+             }
+
+            if(event.target.id === 'expenseAmount'){
+               text = parent.querySelector('#expenseText').value;
+               amount = +event.target.value;
+            }
+
+            console.log(`'id': ${parent.id}, 'text': ${text}, 'amount': ${amount}`);
+            handler(parent.id, text, amount);
+        });
+    }
 
     bindDeleteExpense(handler) {
         this.transactionsList.addEventListener("click", event => {
@@ -200,4 +218,5 @@ class ExpenseView {
             }
         });
     }
+
 }

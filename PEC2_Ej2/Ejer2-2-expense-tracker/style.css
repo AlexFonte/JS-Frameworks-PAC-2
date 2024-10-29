@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css?family=Lato&display=swap');
+@import url("https://fonts.googleapis.com/css?family=Lato&display=swap");
 
 :root {
   --box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
@@ -16,7 +16,7 @@ body {
   justify-content: center;
   min-height: 100vh;
   margin: 0;
-  font-family: 'Lato', sans-serif;
+  font-family: "Lato", sans-serif;
 }
 
 .container {
@@ -77,8 +77,8 @@ label {
   margin: 10px 0;
 }
 
-input[type='text'],
-input[type='number'] {
+input[type="text"],
+input[type="number"] {
   border: 1px solid #dedede;
   border-radius: 2px;
   display: block;
@@ -116,6 +116,7 @@ input[type='number'] {
   box-shadow: var(--box-shadow);
   color: #333;
   display: flex;
+
   justify-content: space-between;
   position: relative;
   padding: 10px;
@@ -148,4 +149,34 @@ input[type='number'] {
 
 .list li:hover .delete-btn {
   opacity: 1;
+}
+
+li input.edit-expense-text,
+li input.edit-expense-amount {
+  padding: 10px;
+  border: none;
+  display: block;
+  width: 100%;
+}
+li input.edit-expense-text {
+  text-align: start;
+}
+
+li input.edit-expense-amount {
+  text-align: end;
+}
+
+input.edit-expense-amount:not(:focus),
+input.edit-expense-amount:not(:focus)::-webkit-outer-spin-button,
+input.edit-expense-amount:not(:focus)::-webkit-inner-spin-button {
+  -moz-appearance: textfield;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+input.edit-expense-text:focus,
+input.edit-expense-amount:focus {
+  outline: 0;
+  border: 1px solid grey;
+  text-align: left;
 }
