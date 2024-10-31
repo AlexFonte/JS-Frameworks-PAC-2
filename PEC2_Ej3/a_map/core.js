@@ -6,7 +6,7 @@ function multiplyBy10(array) {
 function shiftRight(array) {
   // your code here
   // serveis per dir que no sutir fora del index, i mantigui els index dinter del array, com si un fos una llista circular
-  return array.map((element, index, arr) => 
+  return array.map((element, index, arr) =>
     arr[(index - 1 + arr.length) % arr.length]
   );
 
@@ -19,7 +19,7 @@ function onlyVowels(array) {
   * el 'i' en la expresio serveix per dirli que no sigui case sensitve
    * 
    */
-  return array.map(word => word.replace(/[^aeiou]/gi,''));
+  return array.map(word => word.replace(/[^aeiou]/gi, ''));
 }
 
 function doubleMatrix(array) {
