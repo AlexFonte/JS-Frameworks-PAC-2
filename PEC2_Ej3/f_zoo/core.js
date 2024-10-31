@@ -1,5 +1,14 @@
+const { animals, employees, hours, prices } = require('./data');
+
 function entryCalculator(entrants) {
   // your code here
+  if (!entrants || Object.entries(entrants).length === 0) return 0;
+
+  return Object.entries(entrants).reduce((total, person) => { 
+    /* console.log(person); */
+    return total + (prices[person[0]] * person[1])
+  }, 0);
+
 }
 
 function schedule(dayName) {
