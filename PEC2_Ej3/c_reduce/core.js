@@ -20,6 +20,9 @@ function objectify(array) {
 
 function luckyNumbers(array) {
   // your code here
+  return array.reduce((acc, item, index, array) => {
+    return acc = acc + (index === array.length -1 ?  ` and ${item}` :  ` ${item},` ) 
+  }, 'Your lucky numbers are:');
 }
 
 module.exports = {
