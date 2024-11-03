@@ -13,8 +13,9 @@ const findOne = (list, { key, value }) => {
             // un objecte amb un la propietat 'key' i el valor sigui igual 'value', que passem per paràmetres
             const element = list.find(element => element[key] === value);
             // Operador condicional,
-            // on es verifica que en cas que existeixi l'objecte recuperat en la línia anterior, executarà la funció onSuccess amb el paràmetre 'element'.
-            // En el cas contrari executarà la funció onError amb un missatge.
+            // on es verifica que en cas que existeixi l'objecte recuperat en la línia anterior,
+            // retorna la promesa resolve() amb el paràmetre 'element'.
+            // En el cas contrari retorna reject() amb un missatge.
             element ? resolve(element) : reject({ msg: 'ERROR: Element Not Found' });
         }, 2000);//Acabar de definir la funció setTimeout amb els ms corresponents.
     });
@@ -40,7 +41,7 @@ const users = [
     }
 ];
 
-
+//Creem una funcio asycrona on dintre en permetra poder usutilizar await.
 const callAsyncFindOune = async () => {
     //Imprimeix per consola el missatge de findOne success
     console.log('findOne success');
@@ -74,6 +75,7 @@ const callAsyncFindOune = async () => {
     }
 };
 
+//Cridem a la funcion asyncrona
 callAsyncFindOune();
 
 

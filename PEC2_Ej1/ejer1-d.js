@@ -13,8 +13,9 @@ const findOne = (list, { key, value }) => {
             // un objecte amb un la propietat 'key' i el valor sigui igual 'value', que passem per paràmetres
             const element = list.find(element => element[key] === value);
             // Operador condicional,
-            // on es verifica que en cas que existeixi l'objecte recuperat en la línia anterior, executarà la funció onSuccess amb el paràmetre 'element'.
-            // En el cas contrari executarà la funció onError amb un missatge.
+            // on es verifica que en cas que existeixi l'objecte recuperat en la línia anterior,
+            // retorna la promesa resolve() amb el paràmetre 'element'.
+            // En el cas contrari retorna reject() amb un missatge.
             element ? resolve(element) : reject({ msg: 'ERROR: Element Not Found' });
         }, 2000);//Acabar de definir la funció setTimeout amb els ms corresponents.
     });
@@ -40,16 +41,18 @@ const users = [
     }
 ];
 
-
+//Creem una funcio asycrona on dintre en permetra poder usutilizar await.
 const callAsyncFindAll = async () => {
     //Imprimeix per consola el missatge de findOne success
     console.log('Starting all promise in parallel');
-    
+    //Promise.allSettled ens permet executar difrentes promeses en parallel. y esperem el resultat de totes elles
+    //, encara que una fallí continuara executant la resta.
     const resultParallelPromises = await Promise.allSettled([
             findOne(users, { key: 'name', value: 'Carlos' }),
             findOne(users, { key: 'name', value: 'Fermin' })
         ]);
 
+    //una resoltes totes les promeses, gestionem el resultat de totes elles amb onSucces or onError
     resultParallelPromises.forEach(result => {
         if (result.status === "fulfilled") {
             onSuccess(result.value);
@@ -64,6 +67,7 @@ const callAsyncFindAll = async () => {
     //Imprimeix per consola el missatge de findOne error
 };
 
+//Cridem a la funcion asyncrona
 callAsyncFindAll();
 
 
